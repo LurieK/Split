@@ -25,7 +25,7 @@ def process_image_with_ai (image_file):
     }
 
 class BillViewSet(viewsets.ModelViewSet):
-    queryset = Bill.objects.all().order_by('created_at')
+    queryset = Bill.objects.all().order_by('date')
     serializer_class = BillSerializer
 
     def update(self, request, *args, **kwargs):
@@ -51,7 +51,7 @@ class ImageUploadView(APIView):
                 'splitter_name': processed_data['splitter_name'],
                 'total_price': processed_data['total_price'],
                 'tax_amount': processed_data['tax_amount'],
-                'service_fee': processed_data['service_fee'],
+                'service_charge': processed_data['service_fee'],
                 'is_paid': False, # Default to false for a new bill
             }
             
