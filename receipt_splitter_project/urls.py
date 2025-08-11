@@ -15,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from core.views import BillViewSet, ImageUploadView
+
+router = DefaultRouter()
+router.register(r'bills', BillViewSet, basename='bill')
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    # API endpoints for bills (list, retrieve, update)
+    path('api/', include(router.urls)),
+    
+    # Custom endpoint for image uploads
+    path('api/upload-receipt/', ImageUploadView.as_view(), name='upload-receipt'),
 ]
